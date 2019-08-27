@@ -1,56 +1,51 @@
-import React, {Component} from 'react'
-import './GoogleScholar.css'
+import React, { Component } from "react";
+import "./GoogleScholar.css";
 
 class GoogleScholar extends Component {
   state = {
     data: null,
     isLoading: false,
-    query: ''
-  }
+    query: ""
+  };
 
-  changeHandler = (e) => {
-    this.setState({query: e.target.value})
-  }
+  changeHandler = e => {
+    this.setState({ query: e.target.value });
+  };
 
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     if (e.key === "Enter") {
-      this.setState({isLoading: true})
+      this.setState({ isLoading: true });
 
-      fetch(
-        '/googlescholar_backend/' + encodeURI(this.state.query)
-      ).then(
-        response => response.json()
-      ).then(
-        data => this.setState({data: data, isLoading: false})
-      ).catch(
-        err => console.log(err)
-      )
+      fetch("/googlescholar_backend/" + encodeURI(this.state.query))
+        .then(response => response.json())
+        .then(data => this.setState({ data: data, isLoading: false }))
+        .catch(err => console.log(err));
     }
-  }
+  };
 
   getResults() {
     if (this.state.isLoading) {
-      return <div>Loading (takes a minute)...</div>
+      return <div>Loading (takes a minute)...</div>;
     }
     if (this.state.data === null) {
-      return <div>No input exists</div>
+      return <div>No input exists</div>;
     } else {
-      var apiInfo = this.state.data
+      var apiInfo = this.state.data;
       if (!apiInfo) {
-        return <div>API broken</div>
+        return <div>API broken</div>;
       } else if (apiInfo.length === 0) {
-        return <div>API exists but no results</div>
+        return <div>API exists but no results</div>;
       } else {
-        var arr = apiInfo.results
-        var finalString = ""
+        var arr = apiInfo.results;
+        var finalString = "";
         arr.forEach(paper => {
-          if (paper.title === '') {
-            finalString += "Unknown title\n\n"
+          if (paper.title === "") {
+            finalString += "Unknown title\n\n";
           } else {
-            finalString += paper.title + " =>" + paper.url + "\n\n"
+            finalString += paper.title + " =>" + paper.url + "\n\n";
           }
-        })
-        return <pre>{finalString}</pre>
+        });
+        return <pre>{finalString}</pre>;
       }
     }
   }
@@ -64,12 +59,13 @@ class GoogleScholar extends Component {
             type="text"
             name="query"
             onChange={this.changeHandler}
-            onKeyDown={this.handleKeyDown}/>
+            onKeyDown={this.handleKeyDown}
+          />
         </div>
         {this.getResults()}
       </div>
-    )
+    );
   }
 }
 
-export default GoogleScholar
+export default GoogleScholar;

@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import GoogleReddit from './components/GoogleReddit.js'
-import GoogleScholar from './components/GoogleScholar.js'
-import PrivateCode from './components/PrivateCode.js'
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import GoogleReddit from "./components/GoogleReddit.js";
+import GoogleScholar from "./components/GoogleScholar.js";
+import PrivateCode from "./components/PrivateCode.js";
 
 function Index() {
-  return null
+  return null;
 }
 
 class App extends Component {
@@ -36,8 +36,8 @@ class App extends Component {
           <Route path="/privatecode" component={PrivateCode} />
         </div>
       </Router>
-    )
+    );
   }
 }
 
-export default App
+export default App;
